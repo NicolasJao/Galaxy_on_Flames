@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Galaxy on Flames</title>
+
+  <link rel="stylesheet" type="text/css" href="css/browser_reset.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <script>
+    var dialoguecount = 0;
+    function chooseShip() {
+      document.getElementById("charactericon").innerHTML = "<img src='images/Keith_T_Maxwell.png' width='75' alt='Character icon of Keith T. Maxwell' /><p style='font-size: 10px;'>Name: Keith T. Maxwell</p><p style='font-size: 10px;'>Sex: Male</p><p style='font-size: 10px;'>Race: Terran</p>";
+      if (document.getElementById("bloodstar").checked) {
+        document.getElementById("shipmessage").innerHTML = "The flying fortress of the wanted criminal Qyrr Myfft is the titanium-plated dream of every fighter pilot. It is a true colossus of a vessel and contains one of the most destructive arsenals in the entire galaxy! Has 100 HP.";
+        document.getElementById("shipimage").innerHTML = "<img src='images/Bloodstar.jpeg' width='300' alt='The Bloodstar ship' />";
+        sessionStorage.setItem("ship", "bloodstar");
+        document.getElementById("shipicon").innerHTML = "<img src='images/Bloodstar.jpeg' width='150' alt='The Bloodstar ship' /><p style='font-size: 15px;'>Ship: Bloodstar</p><p style='font-size: 15px;'>HP: 100</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      } else if (document.getElementById("blue fyre").checked) {
+        document.getElementById("shipmessage").innerHTML = "The Blue Fyre was designed by Tork Grant as a concept-study and was first showcased at the Augmenta Space Ship Fair. The ship combines both Nivelian and Terran design and merges functionality and elegance with substantial fighting force. Has a 50% chance to attack twice.";
+        document.getElementById("shipimage").innerHTML = "<img src='images/Blue_Fyre.png' width='300' alt='The Blue Fyre ship' />";
+        sessionStorage.setItem("ship", "blue fyre");
+        document.getElementById("shipicon").innerHTML = "<img src='images/Blue_Fyre.png' width='150' alt='The Blue Fyre ship' /><p style='font-size: 15px;'>Ship: Blue Fyre</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 10px;'>Bonus: 50% chance to attack twice</p>";
+      } else if (document.getElementById("gator custom").checked) {
+        document.getElementById("shipmessage").innerHTML = "The Gator Custom is the signature ship of the Midorian space criminal Malon Sentendar. Originally the Gator Custom belonged to a notorious bounty hunter, but it was stolen by Sentendar after its former owner had parked it in the hangar of the Kaamo Club. Does 100% more damage with missiles.";
+        document.getElementById("shipimage").innerHTML = "<img src='images/Gator_Custom.png' width='300' alt='The Gator Custom ship' />";
+        sessionStorage.setItem("ship", "gator custom");
+        document.getElementById("shipicon").innerHTML = "<img src='images/Gator_Custom.png' width='150' alt='The Gator Custom ship' /><p style='font-size: 15px;'>Ship: Gator Custom</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 8px;'>Bonus: 100% more dmg with missiles</p>";
+      } else if (document.getElementById("amboss").checked) {
+        document.getElementById("shipmessage").innerHTML = "The Amboss is quite a peculiar ship. Despite its small size, its creator Heinrich Wickel not only managed to cram an impressive weaponry into the vessel but also to equip it with an extremely strong titanium plating. Has a 40% dodge chance.";
+        document.getElementById("shipimage").innerHTML = "<img src='images/Amboss.png' width='300' alt='The Amboss ship' />";
+        sessionStorage.setItem("ship", "amboss");
+        document.getElementById("shipicon").innerHTML = "<img src='images/Amboss.png' width='150' alt='The Amboss ship' /><p style='font-size: 15px;'>Ship: Amboss</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 10px;'>Bonus: 40% dodge chance</p>";
+      } else if (document.getElementById("dark angel").checked) {
+        document.getElementById("shipmessage").innerHTML = "The Dark Angel is the prototype of a heavy gunship that had been developed by the Davilon Corporation, a Terran weapons manufacturer which is no longer around these days. It is one of the rarest and most powerful ships in the galaxy. Does 300% more damage when under 50% HP.";
+        document.getElementById("shipimage").innerHTML = "<img src='images/Dark_Angel.jpeg' width='300' alt='The Dark Angel ship' />";
+        sessionStorage.setItem("ship", "dark angel");
+        document.getElementById("shipicon").innerHTML = "<img src='images/Dark_Angel.jpeg' width='150' alt='The Dark Angel ship' /><p style='font-size: 15px;'>Ship: Dark Angel</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 8px;'>Bonus: 300% more dmg under 50% HP</p>";
+      }
+      return false;
+    }
+    function raccoon() {
+      // code is 0130
+      if (document.getElementById("devweapon").value == "0130") {
+        document.getElementById("raccoon").innerHTML = "<img src='images/raccoon.jpeg' width='500' alt='The M6 A4 Raccoon, the most powerful weapon in the galaxy.' /><p>You have unlocked the M6 A4 Raccoon. Damage: Limitless.</p>";
+        sessionStorage.setItem("devweapon", "raccoon");
+      } else {
+        document.getElementById("raccoon").innerHTML = "<p style='color: red;'>Incorrect.</p>";
+      }
+      return false;
+    }
+    function continuebutton() {
+      dialoguecount += 1;
+      gamestart();
+      return false;
+    }
+    function gamestart() {
+      if (sessionStorage.getItem("ship") == null) {
+        document.getElementById("ensureship").innerHTML = "Make sure you have picked a ship. Once you are ready, click the button below to begin the story! <p style='color: red;'>You haven't picked a ship.</p>";
+      } else {
+        if (dialoguecount == 0) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>Hello? Can you hear me? Click \"continue\" if you can.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 1) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>Oh, sorry. You want to start the game. Ahem.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 2) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>Welcome to Galaxy on Flames! I'm the narrator. You are Keith T. Maxwell, a spaceship pilot of the Terran Federation.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 3) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>It's the year 3255 A.D. Four factions rule the galaxy. The Terrans, the Vossk, the Nivelians, and the Midorians.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 4) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px; '/>The Terrans are rival enemies with the Vossk, and the Nivelians are rival enemies with the Midorians after their civil war.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 5) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Ahh! I'm being attacked by pirates. Narrator, stop explaining the lore and talk about MY story!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 6) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px; '/>Oh, right! Our brave hero is on a return mission to Eden Prime, but out of nowhere, a band of space pirates attacked him!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 7) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Argh! They've shot my hyperdrive! I can't escape!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 8) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Pirate<img src='images/Pirate.jpeg' width='60' alt='a pirate icon' style='margin-right: 20px; margin-left: 20px;'/>Ha! We've got you now! We'll just take all your goods and be done here.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 9) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>I'd rather risk using this broken hyperdrive than get taken out by some lowly pirates!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 10) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Ship AI<img src='images/Ship_AI.jpeg' width='60' alt='icon of Ship AI' style='margin-right: 20px; margin-left: 20px;'/>WARNING! WARNING! SYSTEM UNSTABLE! HYPDERDRIVE MALFUNCTION! USE WITH CAUTION!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 11) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Blast it! It's now or never. Here goes nothing!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 12) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Pirate<img src='images/Pirate.jpeg' width='60' alt='a pirate icon' style='margin-right: 20px; margin-left: 20px;'/>What is he doing? Get him before he escapes!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 13) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>What AM I doing? WHOA! What's happening!? This can't be good! AAAAAAAH!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        } else if (dialoguecount == 14) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px; '/>And so, our brave hero is sent somewhere far away... Click \"continue\" and go to Deuter V on the map below to continue the story.<button id='continuebutton' onclick='nextroom()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+        }
+      }
+      return false;
+    }
+    function nextroom() {
+      sessionStorage.setItem("deuterv", "deuterv");
+      document.getElementById("mapbox").innerHTML = "<img src='images/Deuter_V.jpeg' width='60' alt='Deuter V icon' style='margin-right: 20px; margin-left: 20px; '/><a href='deuterv.html'>Deuter V</a>";
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>NEW MAP LOCATION UNLOCKED: Deuter V</div>";
+      return false;
+    }
+    function statsback() {
+      document.getElementById("charactericon").innerHTML = "<img src='images/Keith_T_Maxwell.png' width='75' alt='Character icon of Keith T. Maxwell' /><p style='font-size: 10px;'>Name: Keith T. Maxwell</p><p style='font-size: 10px;'>Sex: Male</p><p style='font-size: 10px;'>Race: Terran</p>";
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Bloodstar.jpeg' width='150' alt='The Bloodstar ship' /><p style='font-size: 15px;'>Ship: Bloodstar</p><p style='font-size: 15px;'>HP: 100</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      } else if (sessionStorage.getItem("ship") == "blue fyre") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Blue_Fyre.png' width='150' alt='The Blue Fyre ship' /><p style='font-size: 15px;'>Ship: Blue Fyre</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 10px;'>Bonus: 50% chance to attack twice</p>";
+      } else if (sessionStorage.getItem("ship") == "gator custom") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Gator_Custom.png' width='150' alt='The Gator Custom ship' /><p style='font-size: 15px;'>Ship: Gator Custom</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 8px;'>Bonus: 100% more dmg with missiles</p>";
+      } else if (sessionStorage.getItem("ship") == "amboss") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Amboss.png' width='150' alt='The Amboss ship' /><p style='font-size: 15px;'>Ship: Amboss</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 10px;'>Bonus: 40% dodge chance</p>";
+      } else if (sessionStorage.getItem("ship") == "dark angel") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Dark_Angel.jpeg' width='150' alt='The Dark Angel ship' /><p style='font-size: 15px;'>Ship: Dark Angel</p><p style='font-size: 15px;'>HP: 50</p><p style='font-size: 8px;'>Bonus: 300% more dmg under 50% HP</p>";
+      }
+      return false;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <h1>Galaxy on Flames</h1>
+    <p>Welcome to Galaxy on Flames, the game! Totally not a ripoff of the story and world of Galaxy on Fire 2! You will go on a journey through various "rooms," which are different webpages, which will each have dialogue or an encounter. Once you get through all the rooms you will reach the final boss at the end of the game. Choose your ship and start your adventure by clicking the button below!</p>
+  </div>
+  <div class="box">
+    <h2>Choose Your Evidence</h2>
+    <p id="shipimage" class=floatRight></p>
+    <div id="description">
+      <p id="shipmessage" class="floatRight"></p>
+    </div>
+    <form name="Choose Ship" method="post">
+      <p><input oninput="chooseShip()" type="radio" id="bloodstar" name="choose ship" value="bloodstar" />Bloodstar</p>
+      <p><input oninput="chooseShip()" type="radio" id="blue fyre" name="choose ship" value="blue fyre" />Blue Fyre</p>
+      <p><input oninput="chooseShip()" type="radio" id="gator custom" name="choose ship" value="gator custom" />Gator Custom</p>
+      <p><input oninput="chooseShip()" type="radio" id="amboss" name="choose ship" value="amboss" />Amboss</p>
+      <p><input oninput="chooseShip()" type="radio" id="dark angel" name="choose ship" value="dark angel" />Dark Angel</p>
+    </form>
+  </div>
+  <div class="box">
+    <h2>Secret Weapon</h2>
+    <p>If you know the four digit code to unlock the safe, you get a secret powerful laser weapon you can use for the game.</p>
+    <p>
+      <label for="devweapon">Enter passcode:</label>
+      <input type="passcode" id="devweapon" name="devweapon" />
+      <button onclick="raccoon()">Enter</button>
+      <p id="raccoon"></p>
+    </p>
+  </div>
+  <div class="box">
+    <h2>How Battle Works</h2>
+    <p>Most rooms will require you to win a battle to move onto the next room in order to complete the game. Here is a little tutorial on how to fight with your spaceship. Rise and shine, space cadet!</p>
+    <br>
+    <p>Galaxy on Flames features turn-based combat. There are two main actions both you and your enemies can choose each turn: Attack and Defend. For each, you must choose an option.</p>
+    <br>
+    <h3>Your Turn</h3>
+    <ul>Attack
+      <li>Lasers - Effective against shields</li>
+      <li>Missiles - Effective against hulls</li>
+      <li>Repair - Heals your HP</li>
+    </ul>
+    <br>
+    <ul>Defend
+      <li>Shield - Take less damage from missiles but more from lasers</li>
+      <li>Hull - Take less damage from lasers but more from missiles</li>
+      <li>Charge - Be vulnerable to both lasers and missiles for one turn but next turn gain 25% critical strike chance and enemies will be vulnerable to anything</li>
+    </ul>
+    <br>
+    <p>You will encounter various types of enemies in the game with different habits. Maybe they favour using their shield for defense, or favour attacking with missiles. Take advantage of these habits and strategize accordingly. Enemies cannot choose "Repair."</p>
+    <br>
+    <h3>The Battlefield</h3>
+    <p>On the field you will see your ship and the enemy. All the stats are listed below each ship. There will be indicators on when you or an enemy has a shield up or down or when using Charge. A blue border is a shield, no border is using hull, and a red border means charging up. ALWAYS click continue to finish a system message instead of clicking any other button (or else it will break).</p>
+    <br>
+    <h3>Stats</h3>
+    <p>After choosing a ship, you will see your stats on the bottom left corner of the screen. It will display your current ship, your current HP during battles, as well as your ship bonus.</p>
+    <br>
+    <h3>Victory</h3>
+    <p>Once you've cleared all the enemies by reducing their HP to 0, you win the battle. You lose if your HP is reduced to 0. Note: You can change your ship by going back to Home during a playthrough for a different strategy or for fun. NEVER switch ships if you have not clicked through all the continue or skip buttons (or else it will break).</p>
+  </div>
+  <div class="box">
+    <h2>Your Journey Begins</h2>
+    <p id="ensureship">Make sure you have picked a ship. Once you are ready, click the button below to begin the story!</p>
+    <button class="centrebutton" onclick="gamestart()">Play</button>
+  </div>
+  <div class="box">
+    <h2>Map</h2>
+    <p><img src='images/background.jpg' width='60' alt='Home page icon' style='margin-right: 20px; margin-left: 20px; '/><a href='index.html'>Home</a></p>
+    <div id="mapbox"></div>
+  </div>
+  <div id="dialoguebox"></div>
+  <div id="shipicon"></div>
+  <div id="charactericon"></div>
+</body>
+
+</html>
+
+<script>
+  if (sessionStorage.getItem("deuterv") != null) {
+    document.getElementById("mapbox").innerHTML = "<img src='images/Deuter_V.jpeg' width='60' alt='Deuter V icon' style='margin-right: 20px; margin-left: 20px; '/><a href='deuterv.html'>Deuter V</a>";
+  }
+  if (sessionStorage.getItem("ship") != null) {
+    statsback();
+  }
+</script>
+
+<!--
+
+There are still some bugs that I haven't had enough time to fix, however they
+don't completely break the game.
+
+-enemycharge never crits, also they still have a chance to choose charge again
+even when they're already charged (I don't want them to do that)
+
+-defeatchecked game over message gets replaced by attack system message, it
+only ever appears when the enemy kills you while you're charging, however
+clicking continue causes it to restart the battle as it should
+
+-dark angel powered up message when under 50% HP gets replaced by something
+else so it never appears, however this might be an unessecary popup anyway (the user will know they're using the dark angel)
+
+-doesn’t say anything that tells you you crit, however it says the amount of
+damage you do when you do so the user will have to assume it was a crit, not
+TOO big of an issue
+
+-I don't have anything anywhere that tells you if the raccoon is active, so
+it's easy to forget sometimes when using it (why did my laser instakill???)
+
+-doesn’t load full map when returning to previous pages, only the next level
+unlocked comes back, so going through the map means you have to click
+multiple links, however it still doesn't break the game
+
+-minor bug that's theoretically easy to fix but I was too lazy / too busy fixing
+more important bugs: it will write bonus 100 hp on the bottom left every time
+during one of the functions (I forget which) because of a
+copy-paste error I did. However I've never actually seen the bug while playing
+(I only saw it in the code) so maybe it's not a big problem. The easy fix would
+be to add a variable of shipbonus to the getship() function and then go over
+all six pages and replace all the instances with that variable
+
+Out of all these bugs, the first is definitely the biggest (it wrecks a
+fundamental aspect of my battle system) however to be fair my game's already
+sort of hard even without enemycharge ever critting. I find it funny though
+that enemies will charge for no reason at all other than to just be
+vulnerable for one turn (since the critical strike is broken).
+
+I'm most likely going to come back to this game to fix these minor to major
+bugs, but in the meantime I'm proud of my work, I spent a LOT of time
+figuring this all out to get it exactly the way I wanted it. And I still feel
+like it can be improved a lot but overall it's a fun game.
+
+-->

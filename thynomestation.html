@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Thynome Station</title>
+
+  <link rel="stylesheet" type="text/css" href="css/browser_reset.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <style>
+    html {
+      background: url("images/Thynome_Station.jpeg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+  </style>
+
+  <script>
+    var dialoguecount = 0;
+    var endingdialoguecount = 0;
+    function stats() {
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Bloodstar.jpeg' width='150' alt='The Bloodstar ship' /><p style='font-size: 15px;'>Ship: Bloodstar</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      } else if (sessionStorage.getItem("ship") == "blue fyre") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Blue_Fyre.png' width='150' alt='The Blue Fyre ship' /><p style='font-size: 15px;'>Ship: Blue Fyre</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 10px;'>Bonus: 50% chance to attack twice</p>";
+      } else if (sessionStorage.getItem("ship") == "gator custom") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Gator_Custom.png' width='150' alt='The Gator Custom ship' /><p style='font-size: 15px;'>Ship: Gator Custom</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 8px;'>Bonus: 100% more dmg with missiles</p>";
+      } else if (sessionStorage.getItem("ship") == "amboss") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Amboss.png' width='150' alt='The Amboss ship' /><p style='font-size: 15px;'>Ship: Amboss</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 10px;'>Bonus: 40% dodge chance</p>";
+      } else if (sessionStorage.getItem("ship") == "dark angel") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Dark_Angel.jpeg' width='150' alt='The Dark Angel ship' /><p style='font-size: 15px;'>Ship: Dark Angel</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 8px;'>Bonus: 300% more dmg under 50% HP</p>";
+      }
+      return false;
+    }
+    function continuebutton() {
+      dialoguecount += 1;
+      gamestart();
+      return false;
+    }
+    function endingcontinuebutton() {
+      endingdialoguecount += 1;
+      ending();
+      return false;
+    }
+    function gamestart() {
+      if (sessionStorage.getItem("victorythynomestation") == "beaten") {
+        dialoguecount = -1;
+      }
+      if (dialoguecount == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>In Thynome, a possible hyperdrive is in the works that could possibly help end the Void threat. Our hero goes there now.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 1) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Ah, Mr. Maxwell. Commander Snocom told us you would come. We've been expecting you.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 2) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>I am Khador, the leading grey scientist here at Deep Science. Welcome to Thynome Station, our headquarters.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 3) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Hi, I'm Carla Paolini. A top scientist at Deep Science.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 4) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Well, well, nice to meet you both. I've heard you've been working on some sort of Khador Drive?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 5) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Ah, yes. Once complete, it will be my greatest invention. It uses the same technology as the Voids' wormholes.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 6) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Once finished, it will be able to send its pilot to extreme distances, even to the Void home system itself.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 7) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Therefore its completion is our only impediment to stopping this Void threat. It is our best hope. It must be completed, Mr. Maxwell.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 8) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>My assistant here and I have been working on it tirelessly. But we are in need of some final parts.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 9) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Ah, so you need me to fetch them for you. Of course. So, where am I headed?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 10) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>We need some of the best hyperdrive parts in the entire galaxy. And you know who makes the best.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 11) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Oh no...<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 12) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>That's right. We have to go deep into Vossk territory and steal some from a convoy.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 13) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Raiding a Vossk convoy? Our biggest rivals and enemies? Are you crazy?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 14) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>We have no other choice. That's why we haven't finished this drive in so long. We've been waiting for a good pilot.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 15) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Look... the Vossk are also being attacked by the Voids. Why can't we ask them politely just this once?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 16) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>You of all people should know that the Terran Federation's relationship with the Vossk Empire is quite complicated, Mr. Maxwell.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 17) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Keep in mind, Dr. Paolini was a 2nd class spaceship pilot before she changed careers and joined us here at Deep Science.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 18) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>She'll be accompanying you during this daring mission.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 19) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>We're short on backup. Most Terran fleets are busy dealing with the Voids, or the usual pirate or Vossk. But mostly the Voids.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 20) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Huh. Okay, I'll do it. But don't blame me if I end up like fried chicken from my ship blowing up.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 21) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Khador<img src='images/Khador.png' width='40' alt='Khador icon' style='margin-right: 20px; margin-left: 20px;'/>Dr. Paolini has planned this for years. Follow her lead and you have a 65% chance of success.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 22) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Wow, okay. These odds could not be better.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 23) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Aw, suck it up, Keith. We'll be fine. C'mon, let's suit up.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (dialoguecount == 24) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px; '/>A relentless battle approaches... Click \"continue\" and go to Vass'ka on the map below to continue the story.<button id='continuebutton' onclick='nextroom()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      }
+      return false;
+    }
+    function nextroom() {
+      sessionStorage.setItem("vasska", "vasska");
+      sessionStorage.setItem("victorythynomestation", "beaten");
+      document.getElementById("mapbox").innerHTML = "<img src='images/Vasska.jpeg' width='60' alt='Vass'ka icon' style='margin-right: 20px; margin-left: 20px; '/><a href='vasska.html'>Vass'ka</a>";
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>NEW MAP LOCATION UNLOCKED: Vass'ka</div>";
+      return false;
+    }
+    function bloodstar() {
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        hp = 100;
+      }
+      return false;
+    }
+    var hp = 50;
+    bloodstar();
+    sessionStorage.setItem("thynomestation", "thynomestation");
+    function ending() {
+      if (sessionStorage.getItem("victoryvoid") == "beaten") {
+        if (endingdialoguecount == 0) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Carla! Are you... waiting for someone?<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 1) {
+          music.play();
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>How about a drink, stranger?<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 2) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>*Radio static noise*<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 3) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Keith! You did it! The wormholes are collapsing all across the galaxy! Well done!<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 4) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>This is going to prosper an age of peace like never before!<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 5) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Keith? Where is he? Can someone please find him?<button id='continuebutton' onclick='endingcontinuebutton()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        } else if (endingdialoguecount == 6) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Keith? Keith!<button id='continuebutton' onclick='credits()'>Continue</button><button id='continuebutton' onclick='credits()'>Skip</button></div>";
+        }
+      }
+      return false;
+    }
+    function credits() {
+      music.play();
+      document.getElementById("dialoguebox").innerHTML = "";
+      document.getElementById("creditsbox").innerHTML = "<div id='credits'><p>Thanks for playing Galaxy on Flames!</p><br><p>Creator: Nicolas Jao</p><br><p>Click the button below to play again</p><br><button class='centrebutton' onclick='newgame()'>New Game</button></div>";
+      return false;
+    }
+    function newgame() {
+      sessionStorage.clear();
+      location = "index.html";
+      return false;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <h1>Thynome Station</h1>
+    <p>The headquarters of Deep Science, a leading science and tech company of the Terran Federation. Danger Level: Secure</p>
+  </div>
+  <div class="box">
+    <h2>Map</h2>
+    <p><img src='images/background.jpg' width='60' alt='Home page icon' style='margin-right: 20px; margin-left: 20px; '/><a href='index.html'>Home</a></p>
+    <p><img src='images/Deuter_V.jpeg' width='60' alt='Deuter V icon' style='margin-right: 20px; margin-left: 20px; '/><a href='deuterv.html'>Deuter V</a></p>
+    <p><img src='images/Yrdal_Gedal.jpeg' width='50' alt='Yrdal Gedal icon' style='margin-right: 20px; margin-left: 20px; '/><a href='yrdalgedal.html'>Yrdal Gedal</a></p>
+    <p><img src='images/Alioth.jpeg' width='60' alt='Alioth icon' style='margin-right: 20px; margin-left: 20px; '/><a href='alioth.html'>Alioth</a></p>
+    <p><img src='images/Thynome_Station.jpeg' width='60' alt='Thynome Station icon' style='margin-right: 20px; margin-left: 20px; '/><a href='thynomestation.html'>Thynome Station</a></p>
+    <div id="mapbox"></div>
+  </div>
+  <div id="dialoguebox"></div>
+  <div id="shipicon"></div>
+  <div id="charactericon"></div>
+  <div id="creditsbox"></div>
+  <audio id="music" controls loop>
+    <source src="sound/After_a_Long_Journey.mp3" type="audio/mpeg">
+  </audio>
+</body>
+
+</html>
+
+<script>
+  if (sessionStorage.getItem("vasska") != null) {
+    document.getElementById("mapbox").innerHTML = "<img src='images/Vasska.jpeg' width='60' alt='Vass'ka icon' style='margin-right: 20px; margin-left: 20px; '/><a href='vasska.html'>Vass'ka</a>";
+  }
+  document.getElementById("charactericon").innerHTML = "<img src='images/Keith_T_Maxwell.png' width='75' alt='Character icon of Keith T. Maxwell' /><p style='font-size: 10px;'>Name: Keith T. Maxwell</p><p style='font-size: 10px;'>Sex: Male</p><p style='font-size: 10px;'>Race: Terran</p>";
+  stats();
+  gamestart();
+  ending();
+</script>

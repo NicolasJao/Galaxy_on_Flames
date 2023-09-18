@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Void System</title>
+
+  <link rel="stylesheet" type="text/css" href="css/browser_reset.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <style>
+    html {
+      background: url("images/Void_System.jpeg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+  </style>
+
+  <script>
+    var dialoguecount = 0;
+    var afterbattledialoguecount = 0;
+    var afterbossdialoguecount = 0;
+    function stats() {
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Bloodstar.jpeg' width='150' alt='The Bloodstar ship' /><p style='font-size: 15px;'>Ship: Bloodstar</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      } else if (sessionStorage.getItem("ship") == "blue fyre") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Blue_Fyre.png' width='150' alt='The Blue Fyre ship' /><p style='font-size: 15px;'>Ship: Blue Fyre</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 10px;'>Bonus: 50% chance to attack twice</p>";
+      } else if (sessionStorage.getItem("ship") == "gator custom") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Gator_Custom.png' width='150' alt='The Gator Custom ship' /><p style='font-size: 15px;'>Ship: Gator Custom</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 8px;'>Bonus: 100% more dmg with missiles</p>";
+      } else if (sessionStorage.getItem("ship") == "amboss") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Amboss.png' width='150' alt='The Amboss ship' /><p style='font-size: 15px;'>Ship: Amboss</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 10px;'>Bonus: 40% dodge chance</p>";
+      } else if (sessionStorage.getItem("ship") == "dark angel") {
+        document.getElementById("shipicon").innerHTML = "<img src='images/Dark_Angel.jpeg' width='150' alt='The Dark Angel ship' /><p style='font-size: 15px;'>Ship: Dark Angel</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 8px;'>Bonus: 300% more dmg under 50% HP</p>";
+      }
+      return false;
+    }
+    function continuebutton() {
+      dialoguecount += 1;
+      if (sessionStorage.getItem("victoryvoid") == null) {
+        gamestart();
+      }
+      return false;
+    }
+    function afterbattledialoguecountbutton() {
+      afterbattledialoguecount += 1;
+      afterbattle();
+      return false;
+    }
+    function afterbosscontinuebutton() {
+      afterbossdialoguecount += 1;
+      afterboss();
+      return false;
+    }
+    function gamestart() {
+      if (sessionStorage.getItem("victoryvoid") == "beaten") {
+        dialoguecount = -1;
+      }
+      if (dialoguecount == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>Two days later...<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 1) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Keith! You have to find Brent now! We’ve located a wormhole opening that we’re going to use to stop the Voids!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 2) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>What? You want me to go to the home system of the Voids?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 3) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Brent will explain the plan when you find him. It’s a plan we’ve been brewing for years.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 4) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>We’re going transport a bomb to their mothership.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 5) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>And I have to deliver it, right? Not exactly a pleasure cruise. Unless you care to join me again?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 6) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Sorry, not this time. The Deep Science team needs me here to help coordinate the wormhole jump.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 7) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>You need to get to the Pescal Inartu system as fast as possible and find Brent, who will tell you more.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 8) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Okay, on one condition. If I make it back alive you owe me a date.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 9) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>A small price for saving the galaxy, I suppose. Agreed.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 10) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>You’ve got a deal!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 11) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>And so our hero goes to Pescal Inartu, where Brent Snocom updates him on the plan.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 12) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Listen, Keith. The Terrans and Vossk have been rival enemies for centuries.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 13) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>But this one time is an exception. The Voids affect us all equally. We’ve made an alliance.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 14) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Unbelievable!<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 15) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>We’ve planned this for years. With the Khador Drive completed, it’s finally possible.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 16) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>We’ve analyzed a wormhole to track the Voids returning to their home system. It was a success. We know its location.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 17) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>The Nivelians helped build us a bomb. The Vossk built the freighter to carry it, and their best pilot is going to transport it.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 18) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Oh. So that means I’m on escort duty.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 19) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Exactly. The Terrans are going to support by protecting it from the Voids. And you’re the leader.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 20) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Well, what are we waiting for? Let’s get this plan started.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 21) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Brent Snocom<img src='images/Brent_Snocom.png' width='50' alt='Brent Snocom icon' style='margin-right: 20px; margin-left: 20px;'/>Agreed. I’ll send you the coordinates of the home system. You are to meet Erkkt Uggut, the Vossk freighter pilot, there.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 22) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>And now, our hero on his final mission, uses the Khador Drive and finds the home system of the Voids.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 23) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Whoa, it’s way stranger than I expected.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 24) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Terran? This is Erkkt Uggut speaking. I am the pilot for the freighter carrying the bomb.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 25) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>A pleasure, Erkkt. I’m Keith. I heard you are the Vossk’s top pilot?<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 26) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>It is a title I hold proudly. And I have heard many things about you as well, Terran.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 27) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Our mission is to clear the waves of Void fighters and get this bomb to the Mothership. Then make our escape.<button id='continuebutton' onclick='continuebutton()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      } else if (dialoguecount == 28) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Sounds good. Well, we have no time to waste.<button id='continuebutton' onclick='displayBattle()'>Continue</button><button id='continuebutton' onclick='displayBattle()'>Skip</button></div>";
+      }
+      return false;
+    }
+    function displayBattle() {
+      document.getElementById("displaybattle").innerHTML = "<button onclick='battle()' class='centrebutton'>Battle</button>";
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>BATTLE UNLOCKED</div>";
+      return false;
+    }
+    function randomInt(pmin, pmax) {
+      var randomnumber = Math.floor(Math.random() * (pmax - pmin + 1) + pmin);
+      return(randomnumber);
+    }
+    function autowin() {
+      victory = true;
+      victorycheck();
+      return false;
+    }
+    function getship() {
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        shipname = "Bloodstar";
+        shipimg = "Bloodstar.jpeg";
+        shipalt = "The Bloodstar ship";
+      } else if (sessionStorage.getItem("ship") == "blue fyre") {
+        shipname = "Blue Fyre";
+        shipimg = "Blue_Fyre.png";
+        shipalt = "The Blue Fyre ship";
+      } else if (sessionStorage.getItem("ship") == "gator custom") {
+        shipname = "Gator Custom";
+        shipimg = "Gator_Custom.png";
+        shipalt = "The Gator Custom ship";
+      } else if (sessionStorage.getItem("ship") == "amboss") {
+        shipname = "Amboss";
+        shipimg = "Amboss.png";
+        shipalt = "The Amboss ship";
+      } else if (sessionStorage.getItem("ship") == "dark angel") {
+        shipname = "Dark Angel";
+        shipimg = "Dark_Angel.jpeg";
+        shipalt = "The Dark Angel ship";
+      }
+      return false;
+    }
+    function createbattlefield() {
+      shields();
+      document.getElementById("dialoguebox").innerHTML = "";
+      document.getElementById("displaybattle").innerHTML = "<button onclick='battle()' class='centrebutton'>Battle</button><br><button onclick='autowin()' class='centrebutton'>Auto-Win</button>";
+      document.getElementById("shipicon").innerHTML = "<img src='images/'" + shipimg + " width='150' alt='" + shipalt + "' /><p style='font-size: 15px;'>Ship: " + shipname + "</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/Void_Enemy.jpeg' width='150' alt='Enemy Void spaceship' style='" + enemyshieldup + "'/><p>Void</p><p>HP: " + enemyhp + "</p></td></tr><tr><td><img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' style='" + shieldup + "'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+      document.getElementById("turnmenu").innerHTML = "<table><tr><td><p>Attack Menu</p><form id='attackmenu' name='Attack Menu' method='post'><p><input checked type='radio' id='Lasers' name='attack' value='lasers' />Lasers</p><p><input type='radio' id='Missiles' name='attack' value='missiles' />Missiles</p><p><input type='radio' id='Repair' name='attack' value='repair' />Repair</p></form></td><td><p>Defend Menu</p><form id='defend menu' name='Defend Menu' method='post'><p><input checked type='radio' id='Shield' name='defend' value='shield' />Shield</p><p><input type='radio' id='Hull' name='defend' value='hull' />Hull</p><p><input type='radio' id='Charge' name='defend' value='charge' />Charge</p></form></td></tr></table><br><p><button onclick='endturn()' class='centrebutton'>End Turn</button></p>";
+      stats();
+      return false;
+    }
+    function shields() {
+      if (charge == true) {
+        shieldup = "border: solid; border-color: red; border-width: 5px;";
+      } else if (shield == true) {
+        shieldup = "border: solid; border-color: blue; border-width: 5px;";
+      } else if (shield == false) {
+        shieldup = "";
+      }
+      if (enemycharge == true) {
+        enemyshieldup = "border: solid; border-color: red; border-width: 5px;";
+      } else if (enemyshield == true) {
+        enemyshieldup = "border: solid; border-color: blue; border-width: 5px;";
+      } else if (enemyshield == false) {
+        enemyshieldup = "";
+      }
+      return false;
+    }
+    function bloodstar() {
+      if (sessionStorage.getItem("ship") == "bloodstar") {
+        hp = 100;
+        maxhp = 100;
+      }
+      return false;
+    }
+    function bluefyre() {
+      if (sessionStorage.getItem("ship") == "blue fyre") {
+        if (randomInt(1, 2) == 1) {
+          enemyhp -= dmg;
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Blue Fyre struck twice! You dealt " + dmg + " damage again!<button id='continuebutton' onclick='enemyturn()'>Continue</button></div>";
+          victorycheck();
+        } else {
+          enemyturn();
+        }
+      } else {
+        enemyturn();
+      }
+      return false;
+    }
+    function darkangel() {
+      if (sessionStorage.getItem("ship") == "dark angel") {
+        if (hp < (maxhp * 0.5)) {
+          dmg *= 4;
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Dark Angel has powered up!<button id='continuebutton' onclick='enemyturn()'>Continue</button></div>";
+        }
+      }
+      return false;
+    }
+    function gatorcustom() {
+      if (sessionStorage.getItem("ship") == "gator custom") {
+        dmg *= 2;
+      }
+      return false;
+    }
+    function amboss() {
+      if (sessionStorage.getItem("ship") == "amboss") {
+        dodgechance = randomInt(1, 10);
+        if (dodgechance >= 1 && dodgechance <= 4) {
+          ambossdodge = true;
+          enemydmg = 0;
+        }
+      }
+      return false;
+    }
+    function raccoon() {
+      if (sessionStorage.getItem("devweapon") == "raccoon") {
+        dmg = enemyhp;
+      }
+      return false;
+    }
+    function enemyhplimit() {
+      if (enemyhp < 0) {
+        enemyhp = 0;
+      }
+      return false;
+    }
+    function hplimit() {
+      if (hp < 0) {
+        hp = 0;
+      }
+      return false;
+    }
+    function maxhplimit() {
+      if (hp > maxhp) {
+        hp = maxhp;
+      }
+      return false;
+    }
+    function lasers() {
+      if (charge == true || enemycharge == true) {
+        dmg = 10;
+        darkangel();
+        if (charge == true) {
+          if (randomInt(1, 4) == 1) {
+            dmg *= 5;
+          }
+        }
+        raccoon();
+        enemyhp -= dmg;
+        enemyhplimit();
+        if (charge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers while charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        } else if (enemycharge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers while the enemy was charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        }
+        victorycheck();
+      } else if (enemyshield == true) {
+        dmg = 10;
+        raccoon();
+        darkangel();
+        enemyhp -= dmg;
+        enemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        victorycheck();
+      } else if (enemyshield == false) {
+        dmg = 5;
+        raccoon();
+        darkangel();
+        enemyhp -= dmg;
+        enemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        victorycheck();
+      }
+      return false;
+    }
+    function missiles() {
+      if (charge == true || enemycharge == true) {
+        dmg = 10;
+        darkangel();
+        gatorcustom();
+        if (charge == true) {
+          if (randomInt(1, 4) == 1) {
+            dmg *= 5;
+          }
+        }
+        enemyhp -= dmg;
+        enemyhplimit();
+        if (charge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles while charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        } else if (enemycharge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles while the enemy was charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        }
+        victorycheck();
+      } else if (enemyshield == true) {
+        dmg = 5;
+        darkangel();
+        gatorcustom();
+        enemyhp -= dmg;
+        enemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        victorycheck();
+      } else if (enemyshield == false) {
+        dmg = 10;
+        darkangel();
+        gatorcustom();
+        enemyhp -= dmg;
+        enemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bluefyre()'>Continue</button></div>";
+        victorycheck();
+      }
+      return false;
+    }
+    function repair() {
+      var healchance = randomInt(1, 10);
+      if (healchance == 1) {
+        hp += 20;
+        maxhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used repair and got lucky! You healed 20 HP!<button id='continuebutton' onclick='enemyturn()'>Continue</button></div>";
+      } else {
+        hp += 10;
+        maxhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used repair! You healed 10 HP!<button id='continuebutton' onclick='enemyturn()'>Continue</button></div>";
+      }
+      return false;
+    }
+    function shieldZ() {
+      shield = true;
+      return false;
+    }
+    function hullZ() {
+      shield = false;
+      return false;
+    }
+    function chargeZ() {
+      charge = true;
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You are charging up!<button id='continuebutton' onclick='enemyturn()'>Continue</button></div>";
+      return false;
+    }
+    function enemylasers() {
+      if (enemycharge == true || charge == true) {
+        enemydmg = 10;
+        if (enemycharge == true) {
+          if (randomInt(1, 1) == 1) {
+            enemydmg *= 4;
+          }
+        }
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (enemycharge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          }
+        } else if (charge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          }
+        }
+      } else if (shield == true) {
+        enemydmg = 10;
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        }
+        defeatcheck();
+      } else if (shield == false) {
+        enemydmg = 5;
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        }
+      }
+      ambossdodge = false;
+      return false;
+    }
+    function enemymissiles() {
+      if (enemycharge == true || charge == true) {
+        enemydmg = 10;
+        if (enemycharge == true) {
+          if (randomInt(1, 1) == 1) {
+            enemydmg *= 4;
+          }
+        }
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (enemycharge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          }
+        } else if (charge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+          }
+        }
+      } else if (shield == true) {
+        enemydmg = 5;
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        }
+      } else if (shield == false) {
+        enemydmg = 10;
+        amboss();
+        hp -= enemydmg;
+        hplimit();
+        defeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! You dodged the attack!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! The enemy dealt " + enemydmg + " damage!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        }
+      }
+      ambossdodge = false;
+      return false;
+    }
+    function enemyshieldZ() {
+      enemyshield = true;
+      enemycharge = false;
+      return false;
+    }
+    function enemyhullZ() {
+      enemyshield = false;
+      enemycharge = false;
+      return false;
+    }
+    function enemychargeZ() {
+      enemycharge = true;
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy is charging up!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+      return false;
+    }
+    function endturn() {
+      if (document.getElementById("Charge").checked) {
+        chargeZ();
+      } else if (document.getElementById("Lasers").checked) {
+        lasers();
+      } else if (document.getElementById("Missiles").checked) {
+        missiles();
+      } else if (document.getElementById("Repair").checked) {
+        repair();
+      }
+      if (document.getElementById("Shield").checked) {
+        charge = false;
+        shieldZ();
+      } else if (document.getElementById("Hull").checked) {
+        charge = false;
+        hullZ();
+      }
+      return false;
+    }
+    function enemyturn() {
+      createbattlefield();
+      defendchance = randomInt(1, 100);
+      if (defendchance >= 1 && defendchance <= 85) {
+        enemyshieldZ();
+      } else if (defendchance < 1) {
+        enemyhullZ();
+      } else if (defendchance >= 86 && defendchance <= 100 && enemycharge == false) {
+        enemychargeZ();
+      }
+      if (enemycharge == false) {
+        attackchance = randomInt(1, 2);
+        if (attackchance == 1) {
+          enemylasers();
+        } else if (attackchance == 2) {
+          enemymissiles();
+        }
+      }
+      return false;
+    }
+    function victorycheck() {
+      enemyhplimit();
+      if (enemyhp == 0) {
+        enemycount -= 1;
+        enemyhp = 60;
+        justkilledenemy = true;
+        document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/explosion.png' width='150' alt='explosion, a very dead enemy'</p></td></tr><tr><td><img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' style='" + shieldup + "'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You defeated an enemy!<button id='continuebutton' onclick='battle()'>Continue</button></div>";
+        if (enemycount == 0) {
+          victory = true;
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>VICTORY.<button id='continuebutton' onclick='afterbattle()'>Continue</button></div>";
+          afterbattle();
+        }
+      }
+      if (victory == true) {
+        dialoguecount = 0;
+        document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/explosion.png' width='150' alt='explosion, a very dead enemy'</p></td></tr><tr><td><img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' style='" + shieldup + "'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>VICTORY.<button id='continuebutton' onclick='afterbattle()'>Continue</button></div>";
+      }
+      return false;
+    }
+    function defeatcheck() {
+      if (hp == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>GAME OVER.<button id='continuebutton' onclick='battle()'>Restart</button></div>";
+        document.getElementById("shipicon").innerHTML = "<img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' /><p style='font-size: 15px;'>Ship: " + shipname + "</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+        document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/Void_Enemy.jpeg' width='150' alt='Enemy Void spaceship' style='" + enemyshieldup + "'/><p>Void</p><p>HP: " + enemyhp + "</p></td></tr><tr><td><img src='images/explosion.png' width='150' alt='explosion, you are dead'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+        document.getElementById("turnmenu").innerHTML = "";
+        victory = false;
+        justkilledenemy = false;
+        hp = 50;
+        maxhp = 50;
+        bloodstar();
+        dmg;
+        shield = true;
+        shieldup;
+        charge = false;
+        ambossdodge = false;
+
+        enemycount = 6;
+        enemyhp = 60;
+        enemydmg;
+        enemyshield = true;
+        enemyshieldup;
+        enemycharge = false;
+      }
+      return false;
+    }
+    function battle() {
+      music.play();
+      if (justkilledenemy == true) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>NEW ENEMY!<button id='continuebutton' onclick='createbattlefield()'>Continue</button></div></div>";
+        justkilledenemy = false;
+        enemyshield = true;
+        enemycharge = false;
+      } else {
+        createbattlefield();
+      }
+      return false;
+    }
+    function afterbattle() {
+      music.pause();
+      if (afterbattledialoguecount == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Cover my flank, Terran! Don't let me down!<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 1) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>There's loads of them! What's your status, Erkkt?<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 2) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>My armour is already damaged, but keep it up. We're nearing the mothership!<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 3) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>It's only going to get harder from here!<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 4) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Good mother of... What is that? It's huge!<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 5) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>That's the Void Mothership. You need to distract its defenses while I get the bomb close!<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 6) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>I'm on it. Oh boy, this is going to be tough.<button id='continuebutton' onclick='afterbattledialoguecountbutton()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      } else if (afterbattledialoguecount == 7) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>DEFEAT THE VOID MOTHERSHIP<button id='continuebutton' onclick='displayboss()'>Continue</button><button id='continuebutton' onclick='displayboss()'>Skip</button></div>";
+      }
+      return false;
+    }
+    function displayboss() {
+      document.getElementById("displaybattle").innerHTML = "<button onclick='bossbattle()' class='centrebutton'>Boss Battle</button>";
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>BOSS BATTLE UNLOCKED - The Final Battle: Click \"Boss Battle\" and save the galaxy!</div>";
+      hp = 50;
+      maxhp = 50;
+      bloodstar();
+      dmg;
+      shield = true;
+      shieldup;
+      charge = false;
+      ambossdodge = false;
+      return false;
+    }
+    function afterboss() {
+      music.pause();
+      sessionStorage.setItem("victoryvoid", "beaten");
+      if (afterbossdialoguecount == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Watch out! They're attacking me from the sides!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 1) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>The engine is damaged! I'm losing control!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 2) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Void<img src='images/Void.jpeg' width='70' alt='a Void icon' style='margin-right: 20px; margin-left: 20px;'/>⏃⍜⌇⌇⎍⊑⎍⏃⌇⊑☌⎍⏃☌⌇⎍⏃⌇⊑⊑⍜⏃☌⟟⌇⊑⎍!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 3) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Erkkt! Are you still alive?<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 4) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Terran, the engines are dead and I'm stuck in the cockpit. But I can still detonate the bomb.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 5) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>It's our only option. I will gladly share the fate of the Voids. For the Vossk Empire!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 6) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Don't be a hero Erkkt! Use the escape pod!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 7) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>Negative, it's down. You need to get out of here now!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 8) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Blast! The whole plan is going down the drain!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 9) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>No, Terran. We can still do this. I just won't make it. One life is miniscule to the grand scale of the galaxy.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 10) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>I'll make sure to tell both the Federation and Empire of your sacrifice, Erkkt.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 11) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Erkkt Uggut<img src='images/Erkkt_Uggut.png' width='70' alt='Erkkt Uggut icon' style='margin-right: 20px; margin-left: 20px;'/>You better live to tell the tale, then! Get out of here! Goodbye, Terran.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 12) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>As Erkkt Uggut detonates the bomb, our brave hero rushes to use the Khador Drive, being chased by Voids.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 13) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>This whole sector of space is going to blow in a few seconds! I've got to go, now!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 14) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Void<img src='images/Void.jpeg' width='70' alt='a Void icon' style='margin-right: 20px; margin-left: 20px;'/>⎍⏃⌇⊑⌇⌇⏃⌇⊑☌⎍⏃☌⌇⟟⌇⊑⎍!!!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 15) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>Our hero goes into hyperspeed just in time as a huge explosion happens, returning home...<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 16) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>I did it! Man, that was close.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 17) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Computer, get me Carla on the line!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 18) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Carla Paolini<img src='images/Carla_Paolini.png' width='50' alt='Carla Paolini icon' style='margin-right: 20px; margin-left: 20px;'/>Keith are you alright? I was worried about you. Is everything okay?<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 19) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>Calm down, Carla! Listen, everything’s done, the galaxy is saved.<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 20) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>Keith T. Maxwell<img src='images/Keith_T_Maxwell.png' width='50' alt='Keith T Maxwell icon' style='margin-right: 20px; margin-left: 20px;'/>I’m coming to your place for our date now. Be ready!<button id='continuebutton' onclick='afterbosscontinuebutton()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      } else if (afterbossdialoguecount == 21) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Narrator<img src='images/Narrator.png' width='60' alt='The narrator' style='margin-right: 20px; margin-left: 20px;'/>And so at last, our brave hero goes to Thynome to rest after a glorious victory...<button id='continuebutton' onclick='nextroom()'>Continue</button><button id='continuebutton' onclick='nextroom()'>Skip</button></div>";
+      }
+      return false;
+    }
+    function nextroom() {
+      location = "thynomestation.html";
+      return false;
+    }
+
+    var shipname;
+    var shipimg;
+    var shipalt;
+    getship();
+
+    var victory = false;
+    var justkilledenemy = false;
+    var hp = 50;
+    var maxhp = 50;
+    bloodstar();
+    var dmg;
+    var shield = true;
+    var shieldup;
+    var charge = false;
+    var ambossdodge = false;
+
+    var enemycount = 6;
+    var enemyhp = 60;
+    var enemydmg;
+    var enemyshield = true;
+    var enemyshieldup;
+    var enemycharge = false;
+
+    function bossautowin() {
+      bossvictory = true;
+      bossvictorycheck();
+      return false;
+    }
+    function bosscreatebattlefield() {
+      bossshields();
+      document.getElementById("dialoguebox").innerHTML = "";
+      document.getElementById("displaybattle").innerHTML = "<button onclick='bossbattle()' class='centrebutton'>Boss Battle</button><br><button onclick='bossautowin()' class='centrebutton'>Auto-Win</button>";
+      document.getElementById("shipicon").innerHTML = "<img src='images/'" + shipimg + " width='150' alt='" + shipalt + "' /><p style='font-size: 15px;'>Ship: " + shipname + "</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+      document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/Void_Mothership.jpeg' width='400' alt='Enemy Void Mothership' style='" + bossenemyshieldup + "'/><p>Void Mothership</p><p>HP: " + bossenemyhp + "</p></td></tr><tr><td><img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' style='" + shieldup + "'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+      document.getElementById("turnmenu").innerHTML = "<table><tr><td><p>Attack Menu</p><form id='attackmenu' name='Attack Menu' method='post'><p><input checked type='radio' id='Lasers' name='attack' value='lasers' />Lasers</p><p><input type='radio' id='Missiles' name='attack' value='missiles' />Missiles</p><p><input type='radio' id='Repair' name='attack' value='repair' />Repair</p></form></td><td><p>Defend Menu</p><form id='defend menu' name='Defend Menu' method='post'><p><input checked type='radio' id='Shield' name='defend' value='shield' />Shield</p><p><input type='radio' id='Hull' name='defend' value='hull' />Hull</p><p><input type='radio' id='Charge' name='defend' value='charge' />Charge</p></form></td></tr></table><br><p><button onclick='bossendturn()' class='centrebutton'>End Turn</button></p>";
+      stats();
+      return false;
+    }
+    function bossshields() {
+      if (charge == true) {
+        shieldup = "border: solid; border-color: red; border-width: 5px;";
+      } else if (shield == true) {
+        shieldup = "border: solid; border-color: blue; border-width: 5px;";
+      } else if (shield == false) {
+        shieldup = "";
+      }
+      if (bossenemycharge == true) {
+        bossenemyshieldup = "border: solid; border-color: red; border-width: 5px;";
+      } else if (bossenemyshield == true) {
+        bossenemyshieldup = "border: solid; border-color: blue; border-width: 5px;";
+      } else if (bossenemyshield == false) {
+        bossenemyshieldup = "";
+      }
+      return false;
+    }
+    function bossbluefyre() {
+      if (sessionStorage.getItem("ship") == "blue fyre") {
+        if (randomInt(1, 2) == 1) {
+          bossenemyhp -= dmg;
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Blue Fyre struck twice! You dealt " + dmg + " damage again!<button id='continuebutton' onclick='bossenemyturn()'>Continue</button></div>";
+          bossvictorycheck();
+        } else {
+          bossenemyturn();
+        }
+      } else {
+        bossenemyturn();
+      }
+      return false;
+    }
+    function bossdarkangel() {
+      if (sessionStorage.getItem("ship") == "dark angel") {
+        if (hp < (maxhp * 0.5)) {
+          dmg *= 4;
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The Dark Angel has powered up!<button id='continuebutton' onclick='bossenemyturn()'>Continue</button></div>";
+        }
+      }
+      return false;
+    }
+    function bossamboss() {
+      if (sessionStorage.getItem("ship") == "amboss") {
+        dodgechance = randomInt(1, 10);
+        if (dodgechance >= 1 && dodgechance <= 4) {
+          ambossdodge = true;
+          bossenemydmg = 0;
+        }
+      }
+      return false;
+    }
+    function bossraccoon() {
+      if (sessionStorage.getItem("devweapon") == "raccoon") {
+        dmg = bossenemyhp;
+      }
+      return false;
+    }
+    function bossenemyhplimit() {
+      if (bossenemyhp < 0) {
+        bossenemyhp = 0;
+      }
+      return false;
+    }
+    function bosslasers() {
+      if (charge == true || bossenemycharge == true) {
+        dmg = 10;
+        bossdarkangel();
+        if (charge == true) {
+          if (randomInt(1, 4) == 1) {
+            dmg *= 5;
+          }
+        }
+        bossraccoon();
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        if (charge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers while charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        } else if (bossenemycharge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers while the enemy was charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        }
+        bossvictorycheck();
+      } else if (bossenemyshield == true) {
+        dmg = 10;
+        bossraccoon();
+        bossdarkangel();
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        bossvictorycheck();
+      } else if (bossenemyshield == false) {
+        dmg = 5;
+        bossraccoon();
+        bossdarkangel();
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used lasers! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        bossvictorycheck();
+      }
+      return false;
+    }
+    function bossmissiles() {
+      if (charge == true || bossenemycharge == true) {
+        dmg = 10;
+        bossdarkangel();
+        gatorcustom();
+        if (charge == true) {
+          if (randomInt(1, 4) == 1) {
+            dmg *= 5;
+          }
+        }
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        if (charge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles while charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        } else if (enemycharge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles while the enemy was charged! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        }
+        bossvictorycheck();
+      } else if (bossenemyshield == true) {
+        dmg = 5;
+        bossdarkangel();
+        gatorcustom();
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        bossvictorycheck();
+      } else if (bossenemyshield == false) {
+        dmg = 10;
+        bossdarkangel();
+        gatorcustom();
+        bossenemyhp -= dmg;
+        bossenemyhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used missiles! You dealt " + dmg + " damage!<button id='continuebutton' onclick='bossbluefyre()'>Continue</button></div>";
+        bossvictorycheck();
+      }
+      return false;
+    }
+    function bossrepair() {
+      var healchance = randomInt(1, 10);
+      if (healchance == 1) {
+        hp += 20;
+        maxhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used repair and got lucky! You healed 20 HP!<button id='continuebutton' onclick='bossenemyturn()'>Continue</button></div>";
+      } else {
+        hp += 10;
+        maxhplimit();
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You used repair! You healed 10 HP!<button id='continuebutton' onclick='bossenemyturn()'>Continue</button></div>";
+      }
+      return false;
+    }
+    function bosschargeZ() {
+      charge = true;
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>You are charging up!<button id='continuebutton' onclick='bossenemyturn()'>Continue</button></div>";
+      return false;
+    }
+    function bossenemylasers() {
+      if (bossenemycharge == true || charge == true) {
+        bossenemydmg = 10;
+        if (bossenemycharge == true) {
+          if (randomInt(1, 1) == 1) {
+            bossenemydmg *= 4;
+          }
+        }
+        bossamboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (bossenemycharge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          }
+        } else if (charge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          }
+        }
+      } else if (shield == true) {
+        bossenemydmg = 10;
+        bossamboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        }
+        bossdefeatcheck();
+      } else if (shield == false) {
+        bossenemydmg = 5;
+        amboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        }
+      }
+      ambossdodge = false;
+      return false;
+    }
+    function bossenemymissiles() {
+      if (bossenemycharge == true || charge == true) {
+        bossenemydmg = 10;
+        if (bossenemycharge == true) {
+          if (randomInt(1, 1) == 1) {
+            bossenemydmg *= 4;
+          }
+        }
+        amboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (bossenemycharge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while charged! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          }
+        } else if (charge == true) {
+          if (ambossdodge == true) {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          } else {
+            document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used lasers while you were charged! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+          }
+        }
+      } else if (shield == true) {
+        bossenemydmg = 5;
+        bossamboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        }
+      } else if (shield == false) {
+        bossenemydmg = 10;
+        amboss();
+        hp -= bossenemydmg;
+        hplimit();
+        bossdefeatcheck();
+        if (ambossdodge == true) {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! You dodged the attack!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        } else {
+          document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy used missiles! The enemy dealt " + bossenemydmg + " damage!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+        }
+      }
+      ambossdodge = false;
+      return false;
+    }
+    function bossenemyshieldZ() {
+      bossenemyshield = true;
+      bossenemycharge = false;
+      return false;
+    }
+    function bossenemyhullZ() {
+      bossenemyshield = false;
+      bossenemycharge = false;
+      return false;
+    }
+    function bossenemychargeZ() {
+      bossenemycharge = true;
+      document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>The enemy is charging up!<button id='continuebutton' onclick='bossbattle()'>Continue</button></div>";
+      return false;
+    }
+    function bossendturn() {
+      if (document.getElementById("Charge").checked) {
+        bosschargeZ();
+      } else if (document.getElementById("Lasers").checked) {
+        bosslasers();
+      } else if (document.getElementById("Missiles").checked) {
+        bossmissiles();
+      } else if (document.getElementById("Repair").checked) {
+        bossrepair();
+      }
+      if (document.getElementById("Shield").checked) {
+        charge = false;
+        shieldZ();
+      } else if (document.getElementById("Hull").checked) {
+        charge = false;
+        hullZ();
+      }
+      return false;
+    }
+    function bossenemyturn() {
+      bosscreatebattlefield();
+      defendchance = randomInt(1, 100);
+        if (defendchance >= 1 && defendchance <= 42) {
+          bossenemyshieldZ();
+        } else if (defendchance >= 43 && defendchance <= 85) {
+          bossenemyhullZ();
+        } else if (defendchance >= 86 && defendchance <= 100 && bossenemycharge == false) {
+          bossenemychargeZ();
+        }
+      if (bossenemycharge == false) {
+        attackchance = randomInt(1, 2);
+        if (attackchance == 1) {
+          bossenemylasers();
+        } else if (attackchance == 2) {
+          bossenemymissiles();
+        }
+      }
+      return false;
+    }
+    function bossvictorycheck() {
+      if (bossenemyhp == 0) {
+        bossvictory = true;
+      }
+      if (bossvictory == true) {
+        document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/bossexplosion.png' width='400' alt='mothership exploding'</p></td></tr><tr><td><img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' style='" + shieldup + "'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>VICTORY. VOID MOTHERSHIP DEFEATED.<button id='continuebutton' onclick='afterboss()'>Continue</button></div>";
+      }
+      return false;
+    }
+    function bossdefeatcheck() {
+      if (hp == 0) {
+        document.getElementById("dialoguebox").innerHTML = "<div class='dialogue'>GAME OVER.<button id='continuebutton' onclick='bossbattle()'>Restart</button></div>";
+        document.getElementById("shipicon").innerHTML = "<img src='images/" + shipimg + "' width='150' alt='" + shipalt + "' /><p style='font-size: 15px;'>Ship: " + shipname + "</p><p style='font-size: 15px;'>HP: " + hp + "</p><p style='font-size: 15px;'>Bonus: Extra HP</p>";
+        document.getElementById("battlefield").innerHTML = "<h2>Battlefield</h2><table id='battlefieldbox'><tr><td><img src='images/Void_Mothership.jpeg' width='400' alt='Enemy Void Mothership' style='" + bossenemyshieldup + "'/><p>Void Mothership</p><p>HP: " + bossenemyhp + "</p></td></tr><tr><td><img src='images/explosion.png' width='150' alt='explosion, you are dead'><p>" + shipname + "</p><p>HP: " + hp + "</td></tr></table>";
+        document.getElementById("turnmenu").innerHTML = "";
+        bossvictory = false;
+        hp = 50;
+        maxhp = 50;
+        bloodstar();
+        dmg;
+        shield = true;
+        shieldup;
+        charge = false;
+        ambossdodge = false;
+
+        bossenemyhp = 500;
+        bossenemydmg;
+        bossenemyshield = true;
+        bossenemyshieldup;
+        bossenemycharge = false;
+      }
+      return false;
+    }
+    function bossbattle() {
+      music.play();
+      bosscreatebattlefield();
+      return false;
+    }
+
+    var bossvictory = false;
+    var bossenemyhp = 500;
+    var bossenemydmg;
+    var bossenemyshield = true;
+    var bossenemyshieldup;
+    var bossenemycharge = false;
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <h1>Void System</h1>
+    <p>The final battle location. The home solar system of the Void Empire. An extremely dangerous place. Danger Level: Extreme</p>
+  </div>
+  <div class="box">
+    <h2>Map</h2>
+    <p><img src='images/background.jpg' width='60' alt='Home page icon' style='margin-right: 20px; margin-left: 20px; '/><a href='index.html'>Home</a></p>
+    <p><img src='images/Deuter_V.jpeg' width='60' alt='Deuter V icon' style='margin-right: 20px; margin-left: 20px; '/><a href='deuterv.html'>Deuter V</a></p>
+    <p><img src='images/Yrdal_Gedal.jpeg' width='50' alt='Yrdal Gedal icon' style='margin-right: 20px; margin-left: 20px; '/><a href='yrdalgedal.html'>Yrdal Gedal</a></p>
+    <p><img src='images/Alioth.jpeg' width='60' alt='Alioth icon' style='margin-right: 20px; margin-left: 20px; '/><a href='alioth.html'>Alioth</a></p>
+    <p><img src='images/Thynome_Station.jpeg' width='60' alt='Thynome Station icon' style='margin-right: 20px; margin-left: 20px; '/><a href='thynomestation.html'>Thynome Station</a></p>
+    <p><img src='images/Vasska.jpeg' width='60' alt="Vass'ka icon" style='margin-right: 20px; margin-left: 20px; '/><a href='vasska.html'>Vass'ka</a></p>
+    <p><img src='images/Void_System.jpeg' width='60' alt="Void System icon" style='margin-right: 20px; margin-left: 20px; '/><a href='void.html'>Void System</a></p>
+  </div>
+  <div class="box">
+    <h2>Battle</h2>
+    <div id="displaybattle"></div>
+    <div id="battlefield"></div>
+    <div id="turnmenu"></div>
+  </div>
+  <div id="dialoguebox"></div>
+  <div id="shipicon"></div>
+  <div id="charactericon"></div>
+  <audio id="music" controls loop>
+    <source src="sound/At_What_Cost.mp3" type="audio/mpeg">
+  </audio>
+</body>
+
+</html>
+
+<script>
+  if (sessionStorage.getItem("end") != null) {
+    document.getElementById("mapbox").innerHTML = "<img src='images/Void_System.jpeg' width='60' alt='Void System icon' style='margin-right: 20px; margin-left: 20px; '/><a href='void.html'>Void System</a>";
+  }
+  document.getElementById("charactericon").innerHTML = "<img src='images/Keith_T_Maxwell.png' width='75' alt='Character icon of Keith T. Maxwell' /><p style='font-size: 10px;'>Name: Keith T. Maxwell</p><p style='font-size: 10px;'>Sex: Male</p><p style='font-size: 10px;'>Race: Terran</p>";
+  stats();
+  gamestart();
+</script>

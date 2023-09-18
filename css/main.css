@@ -1,0 +1,253 @@
+html {
+  background: url("../images/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+	line-height: 1;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.box {
+	width: 900px;
+	background-color: rgb(246,246,246);
+	margin-left: auto;
+	margin-right: auto;
+	padding: 50px;
+  opacity: 80%;
+  border-radius: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dialogue {
+  background-color: rgb(40,44,53);
+  opacity: 100%;
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+  height: 70px;
+	position: fixed;
+	top: 0px;
+	border-bottom: solid thin black;
+	font-size: 15px;
+  color: white;
+}
+
+#continuebutton {
+  background-color: #D3D3D3;
+  margin-left: 20px;
+}
+
+nav {
+	background-color: #D3D3D3;
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	border-bottom: solid thin black;
+	font-size: 30px;
+}
+
+nav ul li {
+	display: inline;
+	margin: 0px 10px 0px 10px
+}
+
+nav ul li a:link, nav ul li a:visited {
+	color: #000000;
+	padding: 6px;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	background-color: #ababab;
+}
+
+nav ul li a:active {
+	background-color: #666666;
+}
+
+body {
+	line-height: 175%;
+	font-family: "Verdana";
+	text-align: justify;
+}
+
+h1 {
+	font-family: "Verdana";
+	font-size: 40px;
+	color: #666666;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+p {
+	color: #000000;
+	line-height: 175%;
+	font-family: "Verdana";
+	text-align: justify;
+	font-size: 20px;
+}
+
+h2 {
+	font-size: 30px;
+	color: #666666;
+	margin-bottom: 40px;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 20px;
+	color: #666666;
+	margin-bottom: 40px;
+	font-weight: bold;
+}
+
+img {
+	border: solid black thin;
+}
+
+.floatLeft {
+	float: left;
+	margin-right: 20px;
+}
+
+.floatRight {
+	float: right;
+	margin-left: 30px;
+}
+
+ul {
+	list-style: disc;
+	margin-left: 40px;
+  font-size: 20px;
+}
+
+ol {
+	list-style: decimal;
+	margin-left: 40px;
+}
+
+li {
+	color: #000000;
+	line-height: 175%;
+	font-family: "Verdana";
+	text-align: justify;
+	font-size: 20px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table, th, td {
+	border: 1px solid black;
+	padding: 15px;
+  margin-top: 15px;
+	font-size: 25px;
+}
+
+th {
+	text-align: center;
+	font-weight: bold;
+}
+
+td {
+	text-align: center;
+}
+
+a {
+	font-size: 15px;
+}
+
+.floatLeft {
+	float: left;
+	margin-right: 20px;
+}
+
+.floatRight {
+	float: right;
+	margin-left: 20px;
+}
+
+#shipmessage {
+  font-size: 10px;
+}
+
+#description {
+  width: 200px;
+  float: right;
+}
+
+.centrebutton {
+  font-size: 30px;
+  padding: 20px;
+  margin: auto;
+  display: block;
+}
+
+#shipicon {
+  background-color: #D3D3D3;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  padding: 10px;
+}
+
+#charactericon {
+  background-color: #D3D3D3;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  padding: 10px;
+}
+
+#battlefieldbox {
+  border: none;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#credits {
+  position: fixed;
+  width: 800px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  margin-top: -250px;
+  margin-left: -512px;
+  background-color: rgb(40,44,53);
+  border-radius: 5%;
+  border: solid;
+  border-width: 10px;
+  border-color: rgb(246,246,246);
+  padding: 100px;
+}
+
+#credits p {
+  color: white;
+  text-align: center;
+}
+
+#music {
+  width: 300px;
+  height: 20px;
+  position: fixed;
+  bottom: 0px;
+  right: 50%;
+  left: 39.5%;
+}
